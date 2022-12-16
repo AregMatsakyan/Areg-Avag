@@ -16,6 +16,59 @@ function clearAll() {
 }
 
 document.querySelector(".jnjel").onclick = clearAll;
+document.addEventListener("keydown", function (event) {
+  if (event.code === "KeyC") {
+    clearAll();
+  } else {
+    out.value = event.key;
+  }
+  const key1 = event.key;
+  if (tver.includes(key1)) {
+    if (b === "" && znak === "") {
+      a += key1;
+      out.value = a;
+    } else if (a !== "" && b !== "" && finish) {
+      b = key1;
+      finish = false;
+      out.value = b;
+    } else {
+      b += key1;
+      out.value = b;
+      return;
+    }
+  }
+  if (nshan.includes(key1)) {
+    znak = key1;
+    out.value = znak;
+    return;
+  }
+  if (key1 === "=") {
+    if (b === "") {
+      b = a;
+    }
+    switch (znak) {
+      case "+":
+        a = +a + +b;
+        break;
+      case "-":
+        a = a - b;
+        break;
+      case "X":
+        a = a * b;
+        break;
+      case "/":
+        if (b === "0") {
+          out.value = "error";
+          return;
+        }
+        a = a / b;
+        break;
+    }
+    finish = true;
+    out.value = a;
+  }
+});
+
 document.querySelector(".buttns").onclick = (event) => {
   if (!event.target.classList.contains("btn")) return;
   if (event.target.classList.contains(".jnjel")) return (out.value = "");
