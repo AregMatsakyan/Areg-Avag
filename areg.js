@@ -2,7 +2,25 @@ let a = "";
 let b = "";
 let znak = "";
 let finish = false;
-
+const bjo = [
+  "0",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  ".",
+  "x",
+  "/",
+  "+",
+  "-",
+  "=",
+  "c",
+];
 const tver = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."];
 const nshan = ["X", "/", "+", "-"];
 
@@ -14,9 +32,10 @@ function clearAll() {
   finish = false;
   out.value = 0;
 }
-
+debugger;
 document.querySelector(".jnjel").onclick = clearAll;
 document.addEventListener("keydown", function (event) {
+  if (!bjo.includes(event.key)) return;
   if (event.code === "KeyC") {
     clearAll();
   } else {
