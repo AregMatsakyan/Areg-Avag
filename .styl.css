@@ -37,13 +37,13 @@
 .btn:active {
   filter: brightness(90%);
 }
-.btn.tiv {
+.btn.number {
   margin-left: 30px;
 }
-.btn.nshan {
+.btn.enrollment {
   background: orange;
 }
-.btn.mijin {
+.btn.color {
   background: brown;
 }
 input {

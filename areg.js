@@ -1,8 +1,11 @@
-let a = "";
-let b = "";
-let znak = "";
+let number1 = "";
+let number2 = "";
+let sign = "";
 let finish = false;
-const bjo = [
+
+const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."];
+const signs = ["X", "/", "+", "-"];
+const calcKeyboard = [
   "0",
   "1",
   "2",
@@ -14,128 +17,128 @@ const bjo = [
   "8",
   "9",
   ".",
-  "x",
+  "X",
   "/",
   "+",
   "-",
   "=",
+  "с",
+  "С",
   "c",
+  "C",
 ];
-const tver = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."];
-const nshan = ["X", "/", "+", "-"];
 
 const out = document.querySelector(".calc-screen input");
 function clearAll() {
-  a = "";
-  b = "";
-  znak = "";
+  number1 = "";
+  number2 = "";
+  sign = "";
   finish = false;
   out.value = 0;
 }
-debugger;
-document.querySelector(".jnjel").onclick = clearAll;
+document.querySelector(".delete").onclick = clearAll;
+document.querySelector(".buttns").onclick = (event) => {
+  if (!event.target.classList.contains("btn")) return;
+  if (event.target.classList.contains(".delete")) return (out.value = "");
+  const key = event.target.textContent;
+  debugger;
+  if (numbers.includes(key)) {
+    if (number2 === "" && sign === "") {
+      number1 += key;
+      out.value = number1;
+    } else if (number1 !== "" && number2 !== "" && finish) {
+      number2 = key;
+      finish = false;
+      out.value = number2;
+    } else {
+      number2 += key;
+      out.value = number2;
+      return;
+    }
+  }
+
+  if (signs.includes(key)) {
+    sign = key;
+    out.value = sign;
+    return;
+  }
+  if (key === "=") {
+    if (number2 === "") {
+      number2 = number1;
+    }
+    switch (sign) {
+      case "+":
+        number1 = +number1 + +number2;
+        break;
+      case "-":
+        number1 = number1 - number2;
+        break;
+      case "X":
+        number1 = number1 * number2;
+        break;
+      case "/":
+        if (number2 === "0") {
+          out.value = "error";
+          return;
+        }
+        number1 = number1 / number2;
+        break;
+    }
+    finish = true;
+    out.value = number1;
+  }
+};
 document.addEventListener("keydown", function (event) {
-  if (!bjo.includes(event.key)) return;
-  if (event.code === "KeyC") {
+  if (!calcKeyboard.includes(event.key)) return;
+  if (event.code == "KeyC") {
     clearAll();
   } else {
     out.value = event.key;
   }
   const key1 = event.key;
-  if (tver.includes(key1)) {
-    if (b === "" && znak === "") {
-      a += key1;
-      out.value = a;
-    } else if (a !== "" && b !== "" && finish) {
-      b = key1;
+  if (numbers.includes(key1)) {
+    if (number2 === "" && sign === "") {
+      number1 += key1;
+      out.value = number1;
+    } else if (number1 !== "" && number2 !== "" && finish) {
+      number2 = key1;
       finish = false;
-      out.value = b;
+      out.value = number2;
     } else {
-      b += key1;
-      out.value = b;
+      number2 += key1;
+      out.value = number2;
       return;
     }
   }
-  if (nshan.includes(key1)) {
-    znak = key1;
-    out.value = znak;
+
+  if (signs.includes(key1)) {
+    sign = key1;
+    out.value = sign;
     return;
   }
   if (key1 === "=") {
-    if (b === "") {
-      b = a;
+    if (number2 === "") {
+      number2 = number1;
     }
-    switch (znak) {
+    switch (sign) {
       case "+":
-        a = +a + +b;
+        number1 = +number1 + +number2;
         break;
       case "-":
-        a = a - b;
+        number1 = number1 - number2;
         break;
       case "X":
-        a = a * b;
+        number1 = number1 * number2;
         break;
       case "/":
-        if (b === "0") {
+        if (number2 === "0") {
           out.value = "error";
           return;
         }
-        a = a / b;
+        number1 = number1 / number2;
         break;
     }
     finish = true;
-    out.value = a;
+    out.value = number1;
   }
 });
-
-document.querySelector(".buttns").onclick = (event) => {
-  if (!event.target.classList.contains("btn")) return;
-  if (event.target.classList.contains(".jnjel")) return (out.value = "");
-  const key = event.target.textContent;
-  debugger;
-  if (tver.includes(key)) {
-    if (b === "" && znak === "") {
-      a += key;
-      out.value = a;
-    } else if (a !== "" && b !== "" && finish) {
-      b = key;
-      finish = false;
-      out.value = b;
-    } else {
-      b += key;
-      out.value = b;
-      return;
-    }
-  }
-
-  if (nshan.includes(key)) {
-    znak = key;
-    out.value = znak;
-    return;
-  }
-  if (key === "=") {
-    if (b === "") {
-      b = a;
-    }
-    switch (znak) {
-      case "+":
-        a = +a + +b;
-        break;
-      case "-":
-        a = a - b;
-        break;
-      case "X":
-        a = a * b;
-        break;
-      case "/":
-        if (b === "0") {
-          out.value = "error";
-          return;
-        }
-        a = a / b;
-        break;
-    }
-    finish = true;
-    out.value = a;
-  }
-};
