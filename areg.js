@@ -142,3 +142,4 @@ document.addEventListener("keydown", function (event) {
     out.value = number1;
   }
 });
+let c;
